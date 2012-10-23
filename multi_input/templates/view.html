@@ -1,0 +1,11 @@
+<ol>
+{% for label, errors in form.errors.iteritems %}
+    <li><strong>{{ label|escape }}: {% if errors|length == 1 %} {{ errors.0|escape }} {% else %} {{ errors|escape }} {% endif %}</strong></li>
+{% endfor %}
+</ol>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.mobile }}
+    <input type="submit" value="x">
+</form>
