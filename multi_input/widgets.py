@@ -23,6 +23,5 @@ class MobilePhoneWidget(widgets.MultiWidget):
         return [None, None, None]
 
     def format_output(self, rendered_widgets):
-        return u''.join(rendered_widgets)
-
+        return u'-'.join(rendered_widgets)
 

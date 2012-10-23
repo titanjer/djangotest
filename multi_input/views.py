@@ -10,7 +10,7 @@ def multi_input_view(request, ):
 
         form = MultiInputForm(request.POST)
         if form.is_valid():
-           pass 
+            assert False, 'Mobile: %s' % form.cleaned_data['mobile'] 
 
     else:
         form = MultiInputForm()
