@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'multi_input',
+    'sub_app',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -150,3 +151,9 @@ LOGGING = {
         },
     }
 }
+
+# local settings
+try:
+    from local_settings import *
+except ImportError:
+    pass
