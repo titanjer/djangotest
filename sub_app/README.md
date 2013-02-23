@@ -1,6 +1,9 @@
+# sub_app in an app
 
-syncdb ouput
-------------
+Please import **base** models in models.py and note that **base/__init__.py** if you want to use this template.  
+The following is to check the correctness in django syncdb and contenttype framework.
+
+### syncdb ouput
 
     (djangotest)jmlin@[djangotest]> python manage.py syncdb --noinput
     > __name__:  sub_app.base 
@@ -33,8 +36,7 @@ syncdb ouput
     Installed 0 object(s) from 0 fixture(s)
 
 
-check ContentType
------------------
+### check ContentType
 
     (djangotest)jmlin@[djangotest]> python manage.py shell
     
@@ -70,31 +72,14 @@ check ContentType
     model: contenttype
     name: content type
     
-    app_label: auth
-    model: group
-    name: group
-    
-    app_label: auth
-    model: permission
-    name: permission
+    ....
     
     app_label: sub_app
     model: root
     name: root
     
-    app_label: sessions
-    model: session
-    name: session
-    
-    app_label: sites
-    model: site
-    name: site
+    .....
     
     app_label: sub_app
     model: some
     name: some
-    
-    app_label: auth
-    model: user
-    name: user
-    
