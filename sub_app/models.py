@@ -1,5 +1,8 @@
 from django.db import models
 
+from base.models import *
+#import base
+
 # Create your models here.
 
 class Root(models.Model):
