@@ -1,0 +1,73 @@
+  
+In [14]: Place.objects.filter(id=1).update(name='eeee')
+UPDATE "multi_table_place"
+SET "name" = eeee
+WHERE ("multi_table_place"."canceled" = False
+       AND "multi_table_place"."id" = 1)  [0.85ms]
+
+Out[14]: 1
+
+In [15]: p = Place.objects.get(id=1)
+SELECT "multi_table_place"."id",
+       "multi_table_place"."version",
+       "multi_table_place"."canceled",
+       "multi_table_place"."name",
+       "multi_table_place"."address"
+FROM "multi_table_place"
+WHERE "multi_table_place"."id" = 1  [0.24ms]
+
+
+In [16]: custom_update_fields(p, name='wwww')
+UPDATE "multi_table_place"
+SET "version" = 2,
+    "name" = wwww
+WHERE ("multi_table_place"."id" = 1
+       AND "multi_table_place"."version" = 1)  [0.86ms]
+
+Out[16]: True
+
+
+In [18]: r = Restaurant.objects.get(id=1)  
+SELECT "multi_table_place"."id",  
+       "multi_table_place"."version",  
+       "multi_table_place"."canceled",  
+       "multi_table_place"."name",  
+       "multi_table_place"."address",  
+       "multi_table_restaurant"."place_ptr_id",  
+       "multi_table_restaurant"."serves_hot_dogs",  
+       "multi_table_restaurant"."serves_pizza"  
+FROM "multi_table_restaurant"  
+INNER JOIN "multi_table_place" ON ("multi_table_restaurant"."place_ptr_id" = "multi_table_place"."id")  
+WHERE "multi_table_restaurant"."place_ptr_id" = 1  [0.23ms]  
+  
+  
+In [19]: custom_update_fields(r, name='LALA')  
+SELECT U0."place_ptr_id"  
+FROM "multi_table_restaurant" U0  
+INNER JOIN "multi_table_place" U1 ON (U0."place_ptr_id" = U1."id")  
+WHERE (U0."place_ptr_id" = 1  
+       AND U1."version" = 2)  [0.20ms]  
+  
+UPDATE "multi_table_place"  
+SET "version" = 3,  
+    "name" = LALA  
+WHERE "multi_table_place"."id" IN (1)  [0.31ms]  
+  
+Out[19]: True  
+  
+In [20]: custom_update_fields(r, serves_pizza=False)  
+SELECT U0."place_ptr_id"  
+FROM "multi_table_restaurant" U0  
+INNER JOIN "multi_table_place" U1 ON (U0."place_ptr_id" = U1."id")  
+WHERE (U0."place_ptr_id" = 1  
+       AND U1."version" = 3)  [0.23ms]  
+  
+UPDATE "multi_table_restaurant"  
+SET "serves_pizza" = False  
+WHERE "multi_table_restaurant"."place_ptr_id" IN (1)  [0.39ms]  
+  
+UPDATE "multi_table_place"  
+SET "version" = 4  
+WHERE "multi_table_place"."id" IN (1)  [0.24ms]  
+  
+Out[20]: True  
